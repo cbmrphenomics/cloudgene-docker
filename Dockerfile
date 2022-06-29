@@ -4,7 +4,8 @@ MAINTAINER Sebastian Schoenherr <sebastian.schoenherr@i-med.ac.at>, Lukas Forer 
 
 # Install R
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" | sudo tee -a /etc/apt/sources.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
+RUN rm -vf /etc/apt/sources.list.d/cloudera-cdh5.list*
 RUN apt-get update -y
 RUN apt-get install r-base -y --force-yes
 
@@ -16,7 +17,7 @@ RUN R -e "install.packages('ggplot2', repos = 'http://cran.rstudio.com' )"
 RUN R -e "install.packages('data.table', repos = 'http://cran.rstudio.com' )"
 
 # Install Cloudgene
-ENV CLOUDGENE_VERSION=2.4.1
+ENV CLOUDGENE_VERSION=2.5.1
 RUN mkdir /opt/cloudgene
 RUN cd /opt/cloudgene; curl -fsSL install.cloudgene.io | bash -s $CLOUDGENE_VERSION
 ENV PATH=/opt/cloudgene:$PATH
